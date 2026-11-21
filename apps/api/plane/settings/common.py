@@ -21,6 +21,7 @@ from corsheaders.defaults import default_headers
 
 
 # Module imports
+from plane.custom.apps_list import CUSTOM_INSTALLED_APPS
 from plane.utils.url import is_valid_url
 
 
@@ -113,7 +114,7 @@ INSTALLED_APPS = [
     "plane.api",
     "plane.authentication",
     # Custom Plane apps
-    "plane.custom.core",
+    *CUSTOM_INSTALLED_APPS,
     # Third-party things
     "rest_framework",
     "corsheaders",

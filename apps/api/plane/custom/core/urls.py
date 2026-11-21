@@ -10,13 +10,18 @@ from django.urls import path, include
 # path("company/", include("plane.custom.company.urls")),
 # path("teams/", include("plane.custom.teams.urls")),
 # path("rbac/", include("plane.custom.rbac.urls")),
-# path("milestones/", include("plane.custom.milestones.urls")),
 # path("timesheets/", include("plane.custom.timesheets.urls")),
 # path("approvals/", include("plane.custom.approvals.urls")),
 
 urlpatterns = [
     # Health check for custom API
-    path("health/", lambda request: __import__("django.http").http.JsonResponse({"status": "OK", "service": "custom-plane"}), name="custom-health"),
+    path(
+        "health/",
+        lambda request: __import__("django.http").http.JsonResponse({"status": "OK", "service": "custom-plane"}),
+        name="custom-health",
+    ),
+    # Milestones & timeline
+    path("", include("plane.custom.milestones.urls")),
 ]
 
 # Module URL includes (uncomment as modules are implemented)
@@ -24,7 +29,6 @@ urlpatterns = [
 #     path("company/", include("plane.custom.company.urls")),
 #     path("teams/", include("plane.custom.teams.urls")),
 #     path("rbac/", include("plane.custom.rbac.urls")),
-#     path("milestones/", include("plane.custom.milestones.urls")),
 #     path("timesheets/", include("plane.custom.timesheets.urls")),
 #     path("approvals/", include("plane.custom.approvals.urls")),
 #     path("reporting/", include("plane.custom.reporting.urls")),
