@@ -200,3 +200,15 @@ Note: the task brief lists timesheets (5) before approvals (6) in PR order, but 
 3. Single-workspace deployment or multi-workspace under one Company?
 4. ~~PR order~~ **Resolved 2026-11-21: D5 order (Milestones → Company → RBAC → Approval → Timesheet).**
 5. ~~Was `DECISIONS.md` / the pre-existing PR 1 commit approved?~~ **Resolved 2026-11-21: yes, approved by the product owner.** (Decisions D1–D7 stand; the `CUSTOM_INSTALLED_APPS` refinement in §6 still needs its own approval.)
+
+## 14. PR 3 frontend status (company structure)
+
+Route `/:workspaceSlug/company` through the `routes/extended.ts` seam; a **Company** item in the workspace sidebar's "More" panel (can be pinned) via `packages/constants/src/custom-workspace-navigation.ts`.
+
+- `apps/web/components/company/`: `root` (tabs Departments / Teams, SWR), `company-section` (create / show company), `list` (department tree with indentation, team rows with department badge), `entity-modal` (create/edit department or team), `members-modal` (roster, add from workspace members, change role, remove), `delete-modal`, pure `helpers` (tree flattening, parent options, error text), `types`.
+- `apps/web/services/company.service.ts`.
+- i18n: namespace `company` (30 keys) in all 22 locales; reuses `common.teams/member`, `lead`, `members`, `workspaces`, `add_member`, `remove`, etc. **Non-English strings need native review.**
+- Tests: 9 Vitest tests for the helpers (19 total in `apps/web`).
+- Verified in a browser: create company, add department, add member through the picker, tree rendering with sub-departments, teams tab with department badge, sidebar item and pinning, delete refused (HTTP 400) while sub-departments exist (dialog stays open).
+- Not done: editing the company name, linking a second workspace from the UI (API exists), detaching a workspace, component tests, narrow-viewport/RTL checks, an explicit toast check for the refused delete (the request returned 400 and the dialog stayed open; the toast itself was not captured in a screenshot).
+- Admin-only controls: workspace admins see add/edit/delete/member management; members get a read-only view (members can open rosters); guests get the generic error state because the API denies them.

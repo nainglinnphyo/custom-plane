@@ -32,7 +32,7 @@ Models/migration `custom_milestones.0001_initial`, services, permissions, serial
 
 ### PR 3 — Company organizational structure (Modules 1–2): backend implemented (branch `feat/pr3-company-structure`, stacked on PR 2)
 
-Apps `custom_company` + `custom_teams`, migrations, services, permissions (`plane/custom/core/permissions.py`: workspace ADMIN write, ADMIN/MEMBER read), API, 56 new tests. **Frontend not started.** Original plan follows.
+Apps `custom_company` + `custom_teams`, migrations, services, permissions (`plane/custom/core/permissions.py`: workspace ADMIN write, ADMIN/MEMBER read), API, 56 new tests. **Frontend implemented** (see 03 §14 below); original plan follows.
 
 Models `Company, CompanyWorkspace, Department, DepartmentMember, TeamMember`; CRUD APIs; admin UI via route/sidebar seams; Open Q1 (Team) resolved first. Tests: unit + contract + soft-delete cascade.
 
