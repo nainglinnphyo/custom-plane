@@ -1,0 +1,16 @@
+{
+  "milestone": {
+    "add": "Kilometre taşı ekle",
+    "create_title": "Yeni kilometre taşı",
+    "edit_title": "Kilometre taşını düzenle",
+    "name_placeholder": "Kilometre taşı adı",
+    "status_missed": "Kaçırıldı",
+    "due_on": "Son tarih: {date}",
+    "empty_title": "Henüz kilometre taşı yok",
+    "empty_description": "Bu projenin önemli bir teslim tarihini takip etmek için bir kilometre taşı oluşturun.",
+    "delete_title": "Kilometre taşını sil",
+    "delete_description": "Bu kilometre taşı kaldırılacak. Bağlı iş öğeleri silinmez.",
+    "toast_saved": "Kilometre taşı kaydedildi",
+    "toast_deleted": "Kilometre taşı silindi"
+  }
+}

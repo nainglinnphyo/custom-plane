@@ -1,0 +1,16 @@
+{
+  "milestone": {
+    "add": "마일스톤 추가",
+    "create_title": "새 마일스톤",
+    "edit_title": "마일스톤 편집",
+    "name_placeholder": "마일스톤 이름",
+    "status_missed": "지연됨",
+    "due_on": "마감: {date}",
+    "empty_title": "아직 마일스톤이 없습니다",
+    "empty_description": "이 프로젝트의 주요 납기일을 추적하려면 마일스톤을 만드세요.",
+    "delete_title": "마일스톤 삭제",
+    "delete_description": "이 마일스톤이 삭제됩니다. 연결된 작업 항목은 삭제되지 않습니다.",
+    "toast_saved": "마일스톤이 저장되었습니다",
+    "toast_deleted": "마일스톤이 삭제되었습니다"
+  }
+}

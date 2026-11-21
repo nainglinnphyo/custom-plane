@@ -4,6 +4,12 @@
 # A merge conflict here means another PR added a migration to the same app first:
 # merge preview, delete your migration, and run makemigrations again.
 
+custom_company: 0001_initial
+
+custom_milestones: 0001_initial
+
+custom_teams: 0001_initial
+
 db: 0125_reset_project_deploy_board_identity
 
 license: 0006_instance_is_current_version_deprecated

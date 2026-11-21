@@ -1,0 +1,16 @@
+{
+  "milestone": {
+    "add": "Milestone-ის დამატება",
+    "create_title": "ახალი Milestone",
+    "edit_title": "Milestone-ის რედაქტირება",
+    "name_placeholder": "Milestone-ის სახელი",
+    "status_missed": "გაცდენილი",
+    "due_on": "ვადა: {date}",
+    "empty_title": "Milestone-ები ჯერ არ არის",
+    "empty_description": "შექმენით Milestone ამ პროექტის მნიშვნელოვანი ჩაბარების თარიღის თვალყურის დევნებისთვის.",
+    "delete_title": "Milestone-ის წაშლა",
+    "delete_description": "ეს Milestone წაიშლება. დაკავშირებული სამუშაო ელემენტები არ წაიშლება.",
+    "toast_saved": "Milestone შენახულია",
+    "toast_deleted": "Milestone წაშლილია"
+  }
+}

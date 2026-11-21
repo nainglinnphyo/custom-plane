@@ -1,0 +1,16 @@
+{
+  "milestone": {
+    "add": "Agregar hito",
+    "create_title": "Nuevo hito",
+    "edit_title": "Editar hito",
+    "name_placeholder": "Nombre del hito",
+    "status_missed": "Incumplido",
+    "due_on": "Vence el {date}",
+    "empty_title": "Aún no hay hitos",
+    "empty_description": "Cree un hito para dar seguimiento a una fecha de entrega clave de este proyecto.",
+    "delete_title": "Eliminar hito",
+    "delete_description": "Este hito se eliminará. Los elementos de trabajo vinculados no se eliminan.",
+    "toast_saved": "Hito guardado",
+    "toast_deleted": "Hito eliminado"
+  }
+}

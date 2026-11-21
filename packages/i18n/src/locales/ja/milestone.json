@@ -1,0 +1,16 @@
+{
+  "milestone": {
+    "add": "マイルストーンを追加",
+    "create_title": "新しいマイルストーン",
+    "edit_title": "マイルストーンを編集",
+    "name_placeholder": "マイルストーン名",
+    "status_missed": "未達成",
+    "due_on": "期限: {date}",
+    "empty_title": "マイルストーンはまだありません",
+    "empty_description": "このプロジェクトの重要な納期を追跡するには、マイルストーンを作成してください。",
+    "delete_title": "マイルストーンを削除",
+    "delete_description": "このマイルストーンは削除されます。リンクされている作業項目は削除されません。",
+    "toast_saved": "マイルストーンを保存しました",
+    "toast_deleted": "マイルストーンを削除しました"
+  }
+}

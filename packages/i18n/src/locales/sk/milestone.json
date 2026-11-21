@@ -1,0 +1,16 @@
+{
+  "milestone": {
+    "add": "Pridať míľnik",
+    "create_title": "Nový míľnik",
+    "edit_title": "Upraviť míľnik",
+    "name_placeholder": "Názov míľnika",
+    "status_missed": "Zmeškané",
+    "due_on": "Termín: {date}",
+    "empty_title": "Zatiaľ žiadne míľniky",
+    "empty_description": "Vytvorte míľnik na sledovanie kľúčového dátumu dodania pre tento projekt.",
+    "delete_title": "Zmazať míľnik",
+    "delete_description": "Tento míľnik bude odstránený. Prepojené pracovné položky nebudú zmazané.",
+    "toast_saved": "Míľnik bol uložený",
+    "toast_deleted": "Míľnik bol zmazaný"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "organization": {
+    "nav_label": "조직",
+    "departments": "부서",
+    "department": "부서",
+    "add_department": "부서 추가",
+    "edit_department": "부서 편집",
+    "add_team": "팀 추가",
+    "edit_team": "팀 편집",
+    "department_name_placeholder": "부서 이름",
+    "team_name_placeholder": "팀 이름",
+    "parent_department": "상위 부서",
+    "top_level": "최상위",
+    "members_count": "멤버: {count}",
+    "manage_members": "멤버 관리",
+    "select_member": "멤버 선택",
+    "empty_departments_title": "아직 부서가 없습니다",
+    "empty_departments_description": "조직을 구성하려면 부서를 만드세요.",
+    "empty_teams_title": "아직 팀이 없습니다",
+    "empty_teams_description": "함께 일하는 사람들을 묶으려면 팀을 만드세요.",
+    "delete_department_title": "부서 삭제",
+    "delete_department_description": "이 부서와 소속 정보가 삭제됩니다. 부서에 속한 팀은 유지됩니다.",
+    "delete_team_title": "팀 삭제",
+    "delete_team_description": "이 팀과 소속 정보가 삭제됩니다.",
+    "toast_saved": "저장되었습니다",
+    "toast_deleted": "삭제되었습니다",
+    "no_members": "아직 멤버가 없습니다."
+  }
+}

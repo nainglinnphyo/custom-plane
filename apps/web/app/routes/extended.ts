@@ -4,6 +4,29 @@
  * See the LICENSE file for details.
  */
 
+import { layout, route } from "@react-router/dev/routes";
 import type { RouteConfigEntry } from "@react-router/dev/routes";
 
-export const extendedRoutes: RouteConfigEntry[] = [];
+// Custom Plane routes. `mergeRoutes` (see helper.ts) deep-merges layouts that share a file with
+// the core routes, so these mirror the core nesting down to the project-detail layout.
+export const extendedRoutes: RouteConfigEntry[] = [
+  layout("./(all)/layout.tsx", [
+    layout("./(all)/[workspaceSlug]/layout.tsx", [
+      layout("./(all)/[workspaceSlug]/(projects)/layout.tsx", [
+        // Organization structure (departments, teams)
+        layout("./(all)/[workspaceSlug]/(projects)/organization/layout.tsx", [
+          route(":workspaceSlug/organization", "./(all)/[workspaceSlug]/(projects)/organization/page.tsx"),
+        ]),
+        layout("./(all)/[workspaceSlug]/(projects)/projects/(detail)/[projectId]/layout.tsx", [
+          // Milestones
+          layout("./(all)/[workspaceSlug]/(projects)/projects/(detail)/[projectId]/milestones/layout.tsx", [
+            route(
+              ":workspaceSlug/projects/:projectId/milestones",
+              "./(all)/[workspaceSlug]/(projects)/projects/(detail)/[projectId]/milestones/page.tsx"
+            ),
+          ]),
+        ]),
+      ]),
+    ]),
+  ]),
+];

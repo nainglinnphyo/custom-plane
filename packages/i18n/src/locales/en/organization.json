@@ -1,0 +1,29 @@
+{
+  "organization": {
+    "nav_label": "Organization",
+    "departments": "Departments",
+    "department": "Department",
+    "add_department": "Add department",
+    "edit_department": "Edit department",
+    "add_team": "Add team",
+    "edit_team": "Edit team",
+    "department_name_placeholder": "Department name",
+    "team_name_placeholder": "Team name",
+    "parent_department": "Parent department",
+    "top_level": "Top level",
+    "members_count": "Members: {count}",
+    "manage_members": "Manage members",
+    "select_member": "Select a member",
+    "empty_departments_title": "No departments yet",
+    "empty_departments_description": "Create departments to model your organization.",
+    "empty_teams_title": "No teams yet",
+    "empty_teams_description": "Create teams to group people who work together.",
+    "delete_department_title": "Delete department",
+    "delete_department_description": "This department and its memberships will be removed. Teams in it are kept.",
+    "delete_team_title": "Delete team",
+    "delete_team_description": "This team and its memberships will be removed.",
+    "toast_saved": "Saved",
+    "toast_deleted": "Deleted",
+    "no_members": "No members yet."
+  }
+}

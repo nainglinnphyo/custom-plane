@@ -188,3 +188,32 @@ deployments/kubernetes/custom/
 ---
 
 **Next**: PR 1 — Custom Plane foundation and documentation
+
+---
+
+## Errata (added during PR 2, 2026-11-21)
+
+- **D1 "26 upstream extension seams"** was overstated: files named `*extended*` are not all no-op seams (several are real sidebar/header components). Verified seams are listed in `02-REPOSITORY-ANALYSIS.md` §4.1. No seam exists for project navigation tabs.
+- **D1 "one line in `INSTALLED_APPS`"** was insufficient for multiple modules; replaced by `CUSTOM_INSTALLED_APPS` (`plane/custom/apps_list.py`), approved and implemented in PR 2.
+- **D3 "7 hard-coded ROLE locations"** is not reproducible (about 364 references); see `02` §3.5.
+- Upstream ships placeholders for a Milestones feature (see `02` §7a); revisit D5 if upstream releases it in CE.
+
+---
+
+## D8 — Teams use a separate table (PR 3, 2026-11-21)
+
+**Decision**: Teams are a new `custom_teams` table (`CustomTeam` + `TeamMember`), not the dormant upstream `db.Team` (`teams` table).
+
+**Rationale**: `db.Team` is defined but unused by upstream views, serializers and URLs, and upstream's paid edition has a different "Teamspaces" feature; building on it would couple custom code to a table upstream may change or remove. A separate table costs nothing in upstream-sync risk. This was decided by the assistant as a default while the question was open (`03` §13 Q1) and can be revisited.
+
+**Also decided in PR 3**: Company is a reporting grouping only (a workspace is in at most one company); directory data (company, departments, teams) is writable by workspace admins and readable by admins and members, never guests.
+
+---
+
+## D9 — No Company entity: a workspace is the company (PR 3, 2026-11-21)
+
+**Decision (product owner)**: remove `Company` and `CompanyWorkspace`. If a business needs to be split into several companies, it is split into several **workspaces**; Custom Plane does not group workspaces.
+
+**Supersedes** the Company part of D2 (Option a: "Company as a grouping alongside workspaces"). Department remains a workspace-scoped entity (D2 option b). There is no cross-workspace roll-up; reporting (module 7) is per workspace.
+
+**Implementation**: models, API (`company/`, `company/workspaces/`), UI section, five i18n keys and the related tests were removed before PR 3 merged, and the app's unmerged `0001_initial` migration was regenerated without them (no `0002` needed). The page now simply shows the workspace's departments and teams and is called **Organization** in the UI (`/:workspaceSlug/organization`, namespace `organization`); the backend app label `custom_company` is unchanged.

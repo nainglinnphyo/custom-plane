@@ -1,0 +1,29 @@
+{
+  "organization": {
+    "nav_label": "Organizacja",
+    "departments": "Działy",
+    "department": "Dział",
+    "add_department": "Dodaj dział",
+    "edit_department": "Edytuj dział",
+    "add_team": "Dodaj zespół",
+    "edit_team": "Edytuj zespół",
+    "department_name_placeholder": "Nazwa działu",
+    "team_name_placeholder": "Nazwa zespołu",
+    "parent_department": "Dział nadrzędny",
+    "top_level": "Najwyższy poziom",
+    "members_count": "Członkowie: {count}",
+    "manage_members": "Zarządzaj członkami",
+    "select_member": "Wybierz członka",
+    "empty_departments_title": "Brak działów",
+    "empty_departments_description": "Utwórz działy, aby odwzorować strukturę organizacji.",
+    "empty_teams_title": "Brak zespołów",
+    "empty_teams_description": "Utwórz zespoły, aby grupować osoby, które ze sobą współpracują.",
+    "delete_department_title": "Usuń dział",
+    "delete_department_description": "Ten dział i jego członkostwa zostaną usunięte. Zespoły w nim zawarte zostaną zachowane.",
+    "delete_team_title": "Usuń zespół",
+    "delete_team_description": "Ten zespół i jego członkostwa zostaną usunięte.",
+    "toast_saved": "Zapisano",
+    "toast_deleted": "Usunięto",
+    "no_members": "Brak członków."
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "milestone": {
+    "add": "Adicionar marco",
+    "create_title": "Novo marco",
+    "edit_title": "Editar marco",
+    "name_placeholder": "Nome do marco",
+    "status_missed": "Perdido",
+    "due_on": "Vence em {date}",
+    "empty_title": "Nenhum marco ainda",
+    "empty_description": "Crie um marco para acompanhar uma data de entrega importante deste projeto.",
+    "delete_title": "Excluir marco",
+    "delete_description": "Este marco será removido. Os itens de trabalho vinculados não serão excluídos.",
+    "toast_saved": "Marco salvo",
+    "toast_deleted": "Marco excluído"
+  }
+}

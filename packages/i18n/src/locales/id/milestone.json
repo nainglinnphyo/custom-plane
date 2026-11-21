@@ -1,0 +1,16 @@
+{
+  "milestone": {
+    "add": "Tambah tonggak",
+    "create_title": "Tonggak baru",
+    "edit_title": "Edit tonggak",
+    "name_placeholder": "Nama tonggak",
+    "status_missed": "Terlewat",
+    "due_on": "Jatuh tempo {date}",
+    "empty_title": "Belum ada tonggak",
+    "empty_description": "Buat tonggak untuk melacak tanggal pengiriman penting proyek ini.",
+    "delete_title": "Hapus tonggak",
+    "delete_description": "Tonggak ini akan dihapus. Item kerja yang tertaut tidak ikut dihapus.",
+    "toast_saved": "Tonggak disimpan",
+    "toast_deleted": "Tonggak dihapus"
+  }
+}

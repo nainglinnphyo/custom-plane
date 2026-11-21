@@ -1,0 +1,16 @@
+{
+  "milestone": {
+    "add": "新增里程碑",
+    "create_title": "新里程碑",
+    "edit_title": "編輯里程碑",
+    "name_placeholder": "里程碑名稱",
+    "status_missed": "已錯過",
+    "due_on": "截止日期：{date}",
+    "empty_title": "尚無里程碑",
+    "empty_description": "建立里程碑以追蹤此專案的重要交付日期。",
+    "delete_title": "刪除里程碑",
+    "delete_description": "此里程碑將被移除。已連結的工作事項不會被刪除。",
+    "toast_saved": "里程碑已儲存",
+    "toast_deleted": "里程碑已刪除"
+  }
+}
