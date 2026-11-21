@@ -1,11 +1,6 @@
 {
   "company": {
     "nav_label": "Компания",
-    "no_company_title": "Это рабочее пространство ещё не входит в компанию",
-    "no_company_description": "Создайте компанию, чтобы группировать рабочие пространства для отчётности.",
-    "create_company": "Создать компанию",
-    "company_name_placeholder": "Название компании",
-    "primary": "Основное",
     "departments": "Отделы",
     "department": "Отдел",
     "add_department": "Добавить отдел",

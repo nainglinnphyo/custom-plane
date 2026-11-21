@@ -1,11 +1,6 @@
 {
   "company": {
     "nav_label": "Bedrijf",
-    "no_company_title": "Deze werkruimte maakt nog geen deel uit van een bedrijf",
-    "no_company_description": "Maak een bedrijf aan om werkruimtes te groeperen voor rapportage.",
-    "create_company": "Bedrijf aanmaken",
-    "company_name_placeholder": "Naam van het bedrijf",
-    "primary": "Primair",
     "departments": "Afdelingen",
     "department": "Afdeling",
     "add_department": "Afdeling toevoegen",

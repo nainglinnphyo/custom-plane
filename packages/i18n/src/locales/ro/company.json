@@ -1,11 +1,6 @@
 {
   "company": {
     "nav_label": "Companie",
-    "no_company_title": "Acest spațiu de lucru nu face încă parte dintr-o companie",
-    "no_company_description": "Creează o companie pentru a grupa spațiile de lucru în scopul raportării.",
-    "create_company": "Creează companie",
-    "company_name_placeholder": "Numele companiei",
-    "primary": "Principal",
     "departments": "Departamente",
     "department": "Departament",
     "add_department": "Adaugă departament",

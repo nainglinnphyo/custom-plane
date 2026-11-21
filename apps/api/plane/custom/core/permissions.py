@@ -9,7 +9,7 @@ from plane.db.models import WorkspaceMember
 
 
 class WorkspaceDirectoryPermission(BasePermission):
-    """Workspace-level access for organisational data (company, departments, teams).
+    """Workspace-level access for organisational data (departments, teams).
 
     * read:  active workspace ADMIN or MEMBER (guests do not see the org directory)
     * write: active workspace ADMIN

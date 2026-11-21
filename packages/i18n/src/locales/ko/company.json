@@ -1,11 +1,6 @@
 {
   "company": {
     "nav_label": "회사",
-    "no_company_title": "이 작업 공간은 아직 회사에 속해 있지 않습니다",
-    "no_company_description": "보고를 위해 작업 공간을 묶으려면 회사를 만드세요.",
-    "create_company": "회사 만들기",
-    "company_name_placeholder": "회사 이름",
-    "primary": "기본",
     "departments": "부서",
     "department": "부서",
     "add_department": "부서 추가",

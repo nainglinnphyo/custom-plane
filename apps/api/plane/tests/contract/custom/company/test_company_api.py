@@ -46,7 +46,7 @@ def url(workspace, path):
 
 @pytest.mark.django_db
 class TestPermissionMatrix:
-    @pytest.mark.parametrize("path", ["company/", "departments/", "teams/"])
+    @pytest.mark.parametrize("path", ["departments/", "teams/"])
     def test_anonymous_and_non_members_rejected(self, workspace, path):
         assert APIClient().get(url(workspace, path)).status_code in (401, 403)
         assert client_for(make_user("out")).get(url(workspace, path)).status_code == 403
@@ -62,60 +62,10 @@ class TestPermissionMatrix:
         assert member.get(url(workspace, path)).status_code == 200
         assert member.post(url(workspace, path), {"name": "X"}, format="json").status_code == 403
 
-    def test_member_cannot_touch_company(self, workspace):
-        member, _ = role_client(workspace, 15)
-        assert member.post(url(workspace, "company/"), {"name": "X"}, format="json").status_code == 403
-
     def test_inactive_member_rejected(self, workspace):
         client, user = role_client(workspace, 20)
         WorkspaceMember.objects.filter(workspace=workspace, member=user).update(is_active=False)
         assert client.get(url(workspace, "departments/")).status_code == 403
-
-
-@pytest.mark.django_db
-class TestCompanyApi:
-    def test_lifecycle(self, session_client, workspace):
-        assert session_client.get(url(workspace, "company/")).data is None
-        r = session_client.post(url(workspace, "company/"), {"name": "Acme"}, format="json")
-        assert r.status_code == 201 and r.data["slug"] == "acme"
-        assert [w["slug"] for w in r.data["workspaces"]] == [workspace.slug]
-        assert session_client.post(url(workspace, "company/"), {"name": "Again"}, format="json").status_code == 400
-        assert (
-            session_client.patch(url(workspace, "company/"), {"name": "Acme Inc"}, format="json").data["name"]
-            == "Acme Inc"
-        )
-        assert session_client.delete(url(workspace, "company/")).status_code == 204
-        assert session_client.get(url(workspace, "company/")).data is None
-        assert session_client.delete(url(workspace, "company/")).status_code == 404
-
-    def test_name_required(self, session_client, workspace):
-        assert session_client.post(url(workspace, "company/"), {"name": "  "}, format="json").status_code == 400
-        assert session_client.post(url(workspace, "company/"), {}, format="json").status_code == 400
-
-    def test_link_workspace_requires_admin_of_both(self, session_client, workspace, create_user):
-        session_client.post(url(workspace, "company/"), {"name": "Acme"}, format="json")
-        foreign, _ = make_workspace()
-        body = {"workspace_slug": foreign.slug}
-        assert session_client.post(url(workspace, "company/workspaces/"), body, format="json").status_code == 400
-        # a missing workspace gets the same answer as a forbidden one
-        r_missing = session_client.post(
-            url(workspace, "company/workspaces/"), {"workspace_slug": "nope"}, format="json"
-        )
-        assert r_missing.status_code == 400
-        WorkspaceMember.objects.create(workspace=foreign, member=create_user, role=20)
-        r = session_client.post(url(workspace, "company/workspaces/"), body, format="json")
-        assert r.status_code == 201
-        assert {w["slug"] for w in r.data["workspaces"]} == {workspace.slug, foreign.slug}
-
-    def test_company_does_not_leak_workspaces_the_viewer_is_not_in(self, session_client, workspace, create_user):
-        session_client.post(url(workspace, "company/"), {"name": "Acme"}, format="json")
-        foreign, foreign_admin = make_workspace()
-        WorkspaceMember.objects.create(workspace=foreign, member=create_user, role=20)
-        session_client.post(url(workspace, "company/workspaces/"), {"workspace_slug": foreign.slug}, format="json")
-        # a plain member of `workspace` only sees `workspace` in the company
-        member, _ = role_client(workspace, 15)
-        slugs = [w["slug"] for w in member.get(url(workspace, "company/")).data["workspaces"]]
-        assert slugs == [workspace.slug]
 
 
 @pytest.mark.django_db

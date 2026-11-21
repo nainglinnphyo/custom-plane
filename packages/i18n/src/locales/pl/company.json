@@ -1,11 +1,6 @@
 {
   "company": {
     "nav_label": "Firma",
-    "no_company_title": "Ta przestrzeń robocza nie należy jeszcze do żadnej firmy",
-    "no_company_description": "Utwórz firmę, aby grupować przestrzenie robocze na potrzeby raportowania.",
-    "create_company": "Utwórz firmę",
-    "company_name_placeholder": "Nazwa firmy",
-    "primary": "Główna",
     "departments": "Działy",
     "department": "Dział",
     "add_department": "Dodaj dział",

@@ -4,19 +4,9 @@
  * See the LICENSE file for details.
  */
 
-// Mirrors the Custom Plane company/teams API (apps/api/plane/custom/{company,teams}).
+// Mirrors the Custom Plane departments/teams API (apps/api/plane/custom/{company,teams}).
 
 export type TOrgRole = "member" | "lead";
-
-export type TCompanyWorkspace = { id: string; slug: string; name: string; is_primary: boolean };
-
-export type TCompany = {
-  id: string;
-  name: string;
-  slug: string;
-  settings: Record<string, unknown>;
-  workspaces: TCompanyWorkspace[];
-};
 
 export type TDepartment = {
   id: string;

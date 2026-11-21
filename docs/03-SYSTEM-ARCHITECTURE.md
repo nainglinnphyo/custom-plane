@@ -40,7 +40,7 @@ flowchart TB
   end
   subgraph Custom[plane.custom.*]
     CC[core: shared base, health, event bus helper]
-    CO[company / teams]
+    CO[departments / teams]
     RB[rbac policy layer]
     MS[milestones]
     TS[timesheets]
@@ -96,8 +96,6 @@ erDiagram
   Department ||--o{ DepartmentMember : has
   Workspace ||--o{ CustomTeam : has
   CustomTeam ||--o{ TeamMember : has
-  Company ||--o{ CompanyWorkspace : groups
-  Workspace ||--o{ CompanyWorkspace : in
   Project ||--o{ Milestone : has
   Milestone ||--o{ MilestoneIssue : links
   Issue ||--o{ MilestoneIssue : in
@@ -118,7 +116,7 @@ PRs 1–6 modules are detailed in docs 04–10; the rest are summarized here and
 
 | #   | Module                       | Plane dependencies                                                                                       | New models                                                               | API (`/api/custom/…`)                              | Frontend integration                                                    | Authorization                           | Background                            | Tests                                | Conflict risk                                               |
 | --- | ---------------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ | -------------------------------------------------- | ----------------------------------------------------------------------- | --------------------------------------- | ------------------------------------- | ------------------------------------ | ----------------------------------------------------------- |
-| 1   | Company & departments        | `Workspace`, `WorkspaceMember`, `User`                                                                   | `Company`, `CompanyWorkspace`, `Department`, `DepartmentMember`          | `company/`, `workspaces/<slug>/departments/`       | New route via `routes/extended.ts`; sidebar via `extended-sidebar-item` | Workspace ADMIN to manage; MEMBER read  | none                                  | unit + contract                      | L                                                           |
+| 1   | Departments                  | `Workspace`, `WorkspaceMember`, `User`                                                                   | `Department`, `DepartmentMember`                                         | `workspaces/<slug>/departments/`                   | New route via `routes/extended.ts`; sidebar via `extended-sidebar-item` | Workspace ADMIN to manage; MEMBER read  | none                                  | unit + contract                      | L                                                           |
 | 2   | Teams & memberships          | dormant `Team` (see Open Q1), `WorkspaceMember`, `Project`                                               | `TeamMember` (+ optionally `CustomTeam`)                                 | `workspaces/<slug>/teams/`                         | route + sidebar seam                                                    | ADMIN manage, MEMBER view               | none                                  | unit + contract                      | L (L→M if existing `Team` table is reused)                  |
 | 3   | Custom RBAC                  | `plane.app.permissions`, `ROLE`, `WorkspaceMember`, `ProjectMember`                                      | `PolicyRule`, `PolicyAssignment`                                         | `rbac/`                                            | settings page via route seam                                            | Workspace ADMIN only; **restrict-only** | cache invalidation task               | unit (policy eval matrix) + contract | M (decorator adoption touches views if applied inside core) |
 | 4   | Milestones & timeline        | `Project`, `Issue`, `IssueRelation`, `Module`, `Cycle`, Gantt UI, `packages/types/.../gantt/extended.ts` | `Milestone`, `MilestoneIssue`, `MilestoneDependency`                     | `projects/<id>/milestones/`                        | Gantt `extended.ts` types + new route                                   | Project MEMBER create/edit, GUEST read  | derived-status refresh task           | unit + contract                      | L (backend) / M (Gantt UI)                                  |
@@ -166,13 +164,13 @@ See `15-UPSTREAM-MAINTENANCE.md`: merge release tags into `custom/main`; core ed
 ## 11. Module dependency order (drives roadmap)
 
 ```
-core ─► company(1) ─► teams(2) ─► rbac(3)
+core ─► departments(1) ─► teams(2) ─► rbac(3)
 core ─► milestones(4)
 core ─► approvals(6) ─► timesheets(5)
-timesheets,milestones,company ─► reporting(7), workload(8)
+timesheets,milestones,departments ─► reporting(7), workload(8)
 approvals ─► notifications(12)
 all ─► audit(13)
-company,milestones ─► okrs(14)
+departments,milestones ─► okrs(14)
 reporting,documents ─► ai(15)
 ```
 
@@ -189,7 +187,7 @@ Note: the task brief lists timesheets (5) before approvals (6) in PR order, but 
 | R5  | `custom.core` uses `BigAutoField` while core uses UUID PKs                                                                                                                         | Low                                | Business models must inherit `BaseModel`; keep `core` model-free                                          |
 | R6  | ~~CI migration path filter misses custom migrations~~ **Retracted (PR 2)**: git pathspec `*` crosses `/`, so the filters match; only the cosmetic PR-label grep misses nested apps | Low                                | none needed                                                                                               |
 | R7  | Frontend seams are no-ops by upstream intent — future upstream use of them would conflict                                                                                          | Medium                             | Keep custom seam content in separate files imported from the seam; re-check on each sync                  |
-| R8  | Workspace-rooted design means a true Company tier above workspaces isn't supported                                                                                                 | Medium                             | D2 chose reporting-only Company; confirm that matches expectations                                        |
+| R8  | ~~True Company tier above workspaces unsupported~~ **Closed (D9):** a workspace is the company; no Company entity                                                                  | —                                  | —                                                                                                         |
 | R9  | No `apps/web` test infrastructure                                                                                                                                                  | Medium                             | Establish Vitest for custom frontend code in PR 2                                                         |
 | R10 | Local ports collide with other projects on this machine                                                                                                                            | Low (dev only)                     | See deployment guide                                                                                      |
 
@@ -197,18 +195,18 @@ Note: the task brief lists timesheets (5) before approvals (6) in PR order, but 
 
 1. ~~**Team**: reuse the dormant `Team` or create a separate table?~~ **Assumed in PR 3: separate table (`CustomTeam`), see decision D8.** Reuse would couple custom code to an upstream-owned table that upstream does not use today (EE has a different "Teamspaces" concept). Revisit if you want the two unified.
 2. Is restrict-only RBAC (D3) sufficient, or do you need roles that _grant_ beyond Admin/Member/Guest?
-3. Single-workspace deployment or multi-workspace under one Company?
+3. ~~Single workspace or several under one Company?~~ **Resolved 2026-11-21: one workspace per company (D9).**
 4. ~~PR order~~ **Resolved 2026-11-21: D5 order (Milestones → Company → RBAC → Approval → Timesheet).**
 5. ~~Was `DECISIONS.md` / the pre-existing PR 1 commit approved?~~ **Resolved 2026-11-21: yes, approved by the product owner.** (Decisions D1–D7 stand; the `CUSTOM_INSTALLED_APPS` refinement in §6 still needs its own approval.)
 
-## 14. PR 3 frontend status (company structure)
+## 14. PR 3 frontend status (departments and teams)
 
-Route `/:workspaceSlug/company` through the `routes/extended.ts` seam; a **Company** item in the workspace sidebar's "More" panel (can be pinned) via `packages/constants/src/custom-workspace-navigation.ts`.
+Route `/:workspaceSlug/company` (the page lists the workspace's departments and teams; it keeps the "Company" name because the workspace is the company) through the `routes/extended.ts` seam, plus a **Company** item in the workspace sidebar's "More" panel (can be pinned) via `packages/constants/src/custom-workspace-navigation.ts`.
 
-- `apps/web/components/company/`: `root` (tabs Departments / Teams, SWR), `company-section` (create / show company), `list` (department tree with indentation, team rows with department badge), `entity-modal` (create/edit department or team), `members-modal` (roster, add from workspace members, change role, remove), `delete-modal`, pure `helpers` (tree flattening, parent options, error text), `types`.
+- `apps/web/components/company/`: `root` (tabs Departments / Teams, SWR), `list` (department tree with indentation, team rows with department badge), `entity-modal` (create/edit department or team), `members-modal` (roster, add from workspace members, change role, remove), `delete-modal`, pure `helpers`, `types`.
 - `apps/web/services/company.service.ts`.
-- i18n: namespace `company` (30 keys) in all 22 locales; reuses `common.teams/member`, `lead`, `members`, `workspaces`, `add_member`, `remove`, etc. **Non-English strings need native review.**
+- i18n: namespace `company` (25 keys) in all 22 locales; reuses `common.teams/member`, `lead`, `members`, `add_member`, `remove`, etc. **Non-English strings need native review.**
 - Tests: 9 Vitest tests for the helpers (19 total in `apps/web`).
-- Verified in a browser: create company, add department, add member through the picker, tree rendering with sub-departments, teams tab with department badge, sidebar item and pinning, delete refused (HTTP 400) while sub-departments exist (dialog stays open).
-- Not done: editing the company name, linking a second workspace from the UI (API exists), detaching a workspace, component tests, narrow-viewport/RTL checks, an explicit toast check for the refused delete (the request returned 400 and the dialog stayed open; the toast itself was not captured in a screenshot).
-- Admin-only controls: workspace admins see add/edit/delete/member management; members get a read-only view (members can open rosters); guests get the generic error state because the API denies them.
+- Verified in a browser: add department, add member through the picker, tree with sub-departments, teams tab with department badge, sidebar item and pinning, delete refused (HTTP 400) while sub-departments exist (dialog stays open).
+- Not done: component tests, narrow-viewport/RTL checks, a screenshot of the refused-delete toast.
+- Admin-only controls: workspace admins add/edit/delete/manage members; members get a read-only view; guests get the generic error state because the API denies them.

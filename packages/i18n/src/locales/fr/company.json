@@ -1,11 +1,6 @@
 {
   "company": {
     "nav_label": "Entreprise",
-    "no_company_title": "Cet espace de travail ne fait pas encore partie d’une entreprise",
-    "no_company_description": "Créez une entreprise pour regrouper des espaces de travail à des fins de reporting.",
-    "create_company": "Créer une entreprise",
-    "company_name_placeholder": "Nom de l’entreprise",
-    "primary": "Principal",
     "departments": "Départements",
     "department": "Département",
     "add_department": "Ajouter un département",

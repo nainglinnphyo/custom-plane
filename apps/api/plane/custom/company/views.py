@@ -11,8 +11,6 @@ from plane.db.models import Workspace
 
 from .models import Department, DepartmentMember
 from .serializers import (
-    CompanySerializer,
-    CompanyWriteSerializer,
     DepartmentSerializer,
     DepartmentWriteSerializer,
     MemberRoleSerializer,
@@ -23,11 +21,7 @@ from .services import (
     OrgError,
     add_department_member,
     annotate_departments,
-    create_company,
     delete_department,
-    get_company_for_workspace,
-    link_workspace,
-    unlink_workspace,
     validate_parent,
 )
 
@@ -42,57 +36,6 @@ class _WorkspaceScopedEndpoint(BaseAPIView):
     def get_workspace(self, slug):
         # the permission class already proved the caller is an active member of this slug
         return Workspace.objects.get(slug=slug)
-
-
-class CompanyEndpoint(_WorkspaceScopedEndpoint):
-    def get(self, request, slug):
-        company = get_company_for_workspace(self.get_workspace(slug))
-        if company is None:
-            return Response(None, status=status.HTTP_200_OK)
-        return Response(CompanySerializer(company, context={"request": request}).data)
-
-    def post(self, request, slug):
-        serializer = CompanyWriteSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        try:
-            company = create_company(self.get_workspace(slug), serializer.validated_data["name"])
-        except OrgError as e:
-            return _error(e.message)
-        return Response(CompanySerializer(company, context={"request": request}).data, status=status.HTTP_201_CREATED)
-
-    def patch(self, request, slug):
-        company = get_company_for_workspace(self.get_workspace(slug))
-        if company is None:
-            return _error("This workspace does not belong to a company.", status.HTTP_404_NOT_FOUND)
-        serializer = CompanyWriteSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        company.name = serializer.validated_data["name"]
-        company.save(update_fields=["name", "updated_at"])
-        return Response(CompanySerializer(company, context={"request": request}).data)
-
-    def delete(self, request, slug):
-        """Detach this workspace from its company (the company disappears with its last workspace)."""
-        try:
-            unlink_workspace(self.get_workspace(slug))
-        except OrgError as e:
-            return _error(e.message, status.HTTP_404_NOT_FOUND)
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-class CompanyWorkspaceEndpoint(_WorkspaceScopedEndpoint):
-    def post(self, request, slug):
-        company = get_company_for_workspace(self.get_workspace(slug))
-        if company is None:
-            return _error("This workspace does not belong to a company.", status.HTTP_404_NOT_FOUND)
-        target_slug = request.data.get("workspace_slug")
-        target = Workspace.objects.filter(slug=target_slug).first() if isinstance(target_slug, str) else None
-        if target is None:
-            return _error("You must be an admin of both workspaces to link them.")
-        try:
-            link_workspace(company, target, request.user)
-        except OrgError as e:
-            return _error(e.message)
-        return Response(CompanySerializer(company, context={"request": request}).data, status=status.HTTP_201_CREATED)
 
 
 def _department_queryset(workspace_slug):

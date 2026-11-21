@@ -1,11 +1,6 @@
 {
   "company": {
     "nav_label": "Empresa",
-    "no_company_title": "Este espacio de trabajo aún no forma parte de una empresa",
-    "no_company_description": "Cree una empresa para agrupar espacios de trabajo con fines de informes.",
-    "create_company": "Crear empresa",
-    "company_name_placeholder": "Nombre de la empresa",
-    "primary": "Principal",
     "departments": "Departamentos",
     "department": "Departamento",
     "add_department": "Agregar departamento",

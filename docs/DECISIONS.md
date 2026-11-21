@@ -207,3 +207,13 @@ deployments/kubernetes/custom/
 **Rationale**: `db.Team` is defined but unused by upstream views, serializers and URLs, and upstream's paid edition has a different "Teamspaces" feature; building on it would couple custom code to a table upstream may change or remove. A separate table costs nothing in upstream-sync risk. This was decided by the assistant as a default while the question was open (`03` §13 Q1) and can be revisited.
 
 **Also decided in PR 3**: Company is a reporting grouping only (a workspace is in at most one company); directory data (company, departments, teams) is writable by workspace admins and readable by admins and members, never guests.
+
+---
+
+## D9 — No Company entity: a workspace is the company (PR 3, 2026-11-21)
+
+**Decision (product owner)**: remove `Company` and `CompanyWorkspace`. If a business needs to be split into several companies, it is split into several **workspaces**; Custom Plane does not group workspaces.
+
+**Supersedes** the Company part of D2 (Option a: "Company as a grouping alongside workspaces"). Department remains a workspace-scoped entity (D2 option b). There is no cross-workspace roll-up; reporting (module 7) is per workspace.
+
+**Implementation**: models, API (`company/`, `company/workspaces/`), UI section, five i18n keys and the related tests were removed before PR 3 merged, and the app's unmerged `0001_initial` migration was regenerated without them (no `0002` needed). The `/:workspaceSlug/company` page, sidebar item and `custom_company` app label keep their names; the page now simply shows the workspace's departments and teams.

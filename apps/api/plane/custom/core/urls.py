@@ -20,7 +20,7 @@ urlpatterns = [
     ),
     # Milestones & timeline
     path("", include("plane.custom.milestones.urls")),
-    # Company structure
+    # Departments and teams
     path("", include("plane.custom.company.urls")),
     path("", include("plane.custom.teams.urls")),
 ]

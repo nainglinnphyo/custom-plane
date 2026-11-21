@@ -8,59 +8,6 @@ from django.db import models
 from plane.db.models.base import BaseModel
 
 
-class Company(BaseModel):
-    """A grouping of workspaces for reporting roll-ups only (D2). It is NOT a tenant boundary."""
-
-    name = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=100)
-    settings = models.JSONField(default=dict, blank=True)
-
-    class Meta:
-        db_table = "custom_companies"
-        verbose_name = "Company"
-        verbose_name_plural = "Companies"
-        ordering = ("name",)
-        constraints = [
-            models.UniqueConstraint(
-                fields=["slug"],
-                condition=models.Q(deleted_at__isnull=True),
-                name="custom_company_unique_slug_when_deleted_at_null",
-            ),
-        ]
-
-    def __str__(self):
-        return self.name
-
-
-class CompanyWorkspace(BaseModel):
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name="workspace_links")
-    workspace = models.ForeignKey("db.Workspace", on_delete=models.CASCADE, related_name="custom_company_links")
-    is_primary = models.BooleanField(default=False)
-
-    class Meta:
-        db_table = "custom_company_workspaces"
-        verbose_name = "Company Workspace"
-        verbose_name_plural = "Company Workspaces"
-        ordering = ("-is_primary", "created_at")
-        constraints = [
-            # a workspace belongs to at most one company
-            models.UniqueConstraint(
-                fields=["workspace"],
-                condition=models.Q(deleted_at__isnull=True),
-                name="custom_company_workspace_unique_workspace_when_deleted_at_null",
-            ),
-            # at most one primary workspace per company
-            models.UniqueConstraint(
-                fields=["company"],
-                condition=models.Q(is_primary=True, deleted_at__isnull=True),
-                name="custom_company_workspace_one_primary_when_deleted_at_null",
-            ),
-        ]
-
-    def __str__(self):
-        return f"{self.company_id} <-> {self.workspace_id}"
-
-
 class DepartmentRole(models.TextChoices):
     MEMBER = "member", "Member"
     LEAD = "lead", "Lead"

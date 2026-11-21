@@ -6,12 +6,10 @@
 
 from django.db import transaction
 from django.db.models import Count, Q
-from django.utils.text import slugify
 
-from plane.app.permissions import ROLE
 from plane.db.models import User, Workspace, WorkspaceMember
 
-from .models import Company, CompanyWorkspace, Department, DepartmentMember, DepartmentRole
+from .models import Department, DepartmentMember, DepartmentRole
 
 MAX_DEPARTMENT_DEPTH = 8
 
@@ -41,63 +39,6 @@ def ensure_workspace_member(workspace: Workspace, user_id) -> User:
     if membership is None:
         raise OrgError("The user must be an active member of this workspace.")
     return membership.member
-
-
-# --------------------------------------------------------------------------- company
-
-
-def _unique_slug(name: str) -> str:
-    base = slugify(name)[:90] or "company"
-    slug, n = base, 2
-    while Company.objects.filter(slug=slug).exists():
-        slug = f"{base}-{n}"
-        n += 1
-    return slug
-
-
-def get_company_for_workspace(workspace: Workspace):
-    link = CompanyWorkspace.objects.filter(workspace=workspace).select_related("company").first()
-    return link.company if link else None
-
-
-@transaction.atomic
-def create_company(workspace: Workspace, name: str) -> Company:
-    """Create a company and attach ``workspace`` as its primary workspace."""
-    if get_company_for_workspace(workspace) is not None:
-        raise OrgError("This workspace already belongs to a company.")
-    company = Company.objects.create(name=name, slug=_unique_slug(name))
-    CompanyWorkspace.objects.create(company=company, workspace=workspace, is_primary=True)
-    return company
-
-
-@transaction.atomic
-def link_workspace(company: Company, target: Workspace, actor) -> CompanyWorkspace:
-    """Attach another workspace. The actor must be an active admin of the target as well."""
-    is_target_admin = WorkspaceMember.objects.filter(
-        workspace=target, member=actor, role=ROLE.ADMIN.value, is_active=True
-    ).exists()
-    # same message whether the workspace is missing, unknown to the actor, or the actor is not an admin
-    if not is_target_admin:
-        raise OrgError("You must be an admin of both workspaces to link them.")
-    if get_company_for_workspace(target) is not None:
-        raise OrgError("This workspace already belongs to a company.")
-    return CompanyWorkspace.objects.create(company=company, workspace=target, is_primary=False)
-
-
-@transaction.atomic
-def unlink_workspace(workspace: Workspace) -> None:
-    """Detach a workspace; the company is deleted with its last workspace, and a new primary is chosen if needed."""
-    link = CompanyWorkspace.objects.filter(workspace=workspace).select_related("company").first()
-    if link is None:
-        raise OrgError("This workspace does not belong to a company.")
-    company, was_primary = link.company, link.is_primary
-    link.delete()
-    remaining = CompanyWorkspace.objects.filter(company=company).order_by("created_at")
-    first = remaining.first()
-    if first is None:
-        company.delete()
-    elif was_primary:
-        CompanyWorkspace.objects.filter(pk=first.pk).update(is_primary=True)
 
 
 # ----------------------------------------------------------------------- departments

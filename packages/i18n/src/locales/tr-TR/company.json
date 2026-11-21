@@ -1,11 +1,6 @@
 {
   "company": {
     "nav_label": "Şirket",
-    "no_company_title": "Bu çalışma alanı henüz bir şirketin parçası değil",
-    "no_company_description": "Çalışma alanlarını raporlama amacıyla gruplamak için bir şirket oluşturun.",
-    "create_company": "Şirket oluştur",
-    "company_name_placeholder": "Şirket adı",
-    "primary": "Birincil",
     "departments": "Departmanlar",
     "department": "Departman",
     "add_department": "Departman ekle",

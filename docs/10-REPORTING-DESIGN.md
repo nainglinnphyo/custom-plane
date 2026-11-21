@@ -13,7 +13,7 @@
 
 ## 3. Risks
 
-Query cost on large workspaces (needs indexes from 04 §8 and pagination), accidental cross-workspace aggregation (Company rollups, D2), reuse of core analytics code that may change upstream.
+Query cost on large workspaces (needs indexes from 04 §8 and pagination), accidental cross-workspace aggregation, reuse of core analytics code that may change upstream.
 
 ## 4. Testing
 

@@ -5,8 +5,6 @@
 from django.urls import path
 
 from .views import (
-    CompanyEndpoint,
-    CompanyWorkspaceEndpoint,
     DepartmentDetailEndpoint,
     DepartmentListEndpoint,
     DepartmentMemberEndpoint,
@@ -15,8 +13,6 @@ from .views import (
 _BASE = "workspaces/<str:slug>"
 
 urlpatterns = [
-    path(f"{_BASE}/company/", CompanyEndpoint.as_view(), name="custom-company"),
-    path(f"{_BASE}/company/workspaces/", CompanyWorkspaceEndpoint.as_view(), name="custom-company-workspaces"),
     path(f"{_BASE}/departments/", DepartmentListEndpoint.as_view(), name="custom-departments"),
     path(f"{_BASE}/departments/<uuid:pk>/", DepartmentDetailEndpoint.as_view(), name="custom-department-detail"),
     path(

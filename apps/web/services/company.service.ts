@@ -5,13 +5,13 @@
  */
 
 import { API_BASE_URL } from "@plane/constants";
-import type { TCompany, TDepartment, TMembersKind, TOrgMembership, TOrgRole, TTeam } from "@/components/company/types";
+import type { TDepartment, TMembersKind, TOrgMembership, TOrgRole, TTeam } from "@/components/company/types";
 import { APIService } from "@/services/api.service";
 
 type TDepartmentPayload = { name: string; description: string; parent: string | null };
 type TTeamPayload = { name: string; description: string; department: string | null };
 
-/** Client for the Custom Plane company / departments / teams API, mounted under `/api/custom/`. */
+/** Client for the Custom Plane departments / teams API, mounted under `/api/custom/`. */
 export class CompanyService extends APIService {
   constructor() {
     super(API_BASE_URL);
@@ -27,14 +27,6 @@ export class CompanyService extends APIService {
       .catch((error) => {
         throw error?.response?.data;
       });
-  }
-
-  getCompany(workspaceSlug: string): Promise<TCompany | null> {
-    return this.unwrap(this.get(this.path(workspaceSlug, "company/")));
-  }
-
-  createCompany(workspaceSlug: string, name: string): Promise<TCompany> {
-    return this.unwrap(this.post(this.path(workspaceSlug, "company/"), { name }));
   }
 
   getDepartments(workspaceSlug: string): Promise<TDepartment[]> {

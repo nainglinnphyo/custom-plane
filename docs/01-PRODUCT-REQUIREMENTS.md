@@ -10,7 +10,7 @@ Extend Plane (AGPL-3.0, pinned at `v1.5.0`) into "Custom Plane" for company-leve
 
 | #    | Module                                                                            | Committed phase                           | Plane already provides                         | Gap to build                                |
 | ---- | --------------------------------------------------------------------------------- | ----------------------------------------- | ---------------------------------------------- | ------------------------------------------- |
-| 1    | Company & departments                                                             | PR 2/3                                    | Workspace, `WorkspaceMember.company_role` text | Hierarchy of departments, company grouping  |
+| 1    | Departments                                                                       | PR 2/3                                    | Workspace, `WorkspaceMember.company_role` text | Hierarchy of departments, company grouping  |
 | 2    | Teams & memberships                                                               | with 1                                    | dormant `Team` model, no members               | Membership, API, UI                         |
 | 3    | Custom RBAC                                                                       | next                                      | 3 fixed roles                                  | Fine-grained policy (restrict-only per D3)  |
 | 4    | Milestones & timeline                                                             | next                                      | Modules, Cycles, relations, Gantt UI           | Milestone entity + dependencies on timeline |
@@ -22,7 +22,7 @@ Extend Plane (AGPL-3.0, pinned at `v1.5.0`) into "Custom Plane" for company-leve
 
 Each module needs acceptance criteria from the product owner. The questions below block detailed design:
 
-**Company/Teams** — One workspace or many under one company? Are departments hierarchical? Can a person be in several departments/teams? Do teams own projects?
+**Departments/Teams** — (Resolved: one workspace per company.) Are departments hierarchical? Can a person be in several departments/teams? Do teams own projects?
 **RBAC** — Which concrete roles/permissions beyond Admin/Member/Guest? Are _grants_ needed (current design only restricts)?
 **Milestones** — Per project or cross-project? Date source (manual vs derived from work items)? Dependencies between milestones?
 **Timesheets** — Granularity (per work item? per project?), weekly submission period, billable flag, edit window after approval, timer rules (one active timer per user?).

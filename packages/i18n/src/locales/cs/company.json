@@ -1,11 +1,6 @@
 {
   "company": {
     "nav_label": "Společnost",
-    "no_company_title": "Tento pracovní prostor zatím není součástí žádné společnosti",
-    "no_company_description": "Vytvořte společnost a seskupte pracovní prostory pro reporting.",
-    "create_company": "Vytvořit společnost",
-    "company_name_placeholder": "Název společnosti",
-    "primary": "Hlavní",
     "departments": "Oddělení",
     "department": "Oddělení",
     "add_department": "Přidat oddělení",

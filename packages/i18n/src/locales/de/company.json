@@ -1,11 +1,6 @@
 {
   "company": {
     "nav_label": "Unternehmen",
-    "no_company_title": "Dieser Arbeitsbereich gehört noch zu keinem Unternehmen",
-    "no_company_description": "Erstellen Sie ein Unternehmen, um Arbeitsbereiche für Berichte zu gruppieren.",
-    "create_company": "Unternehmen erstellen",
-    "company_name_placeholder": "Name des Unternehmens",
-    "primary": "Primär",
     "departments": "Abteilungen",
     "department": "Abteilung",
     "add_department": "Abteilung hinzufügen",

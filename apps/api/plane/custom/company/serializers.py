@@ -4,43 +4,8 @@
 
 from rest_framework import serializers
 
-from plane.db.models import WorkspaceMember
 
-from .models import Company, CompanyWorkspace, Department, DepartmentMember, DepartmentRole
-
-
-class CompanySerializer(serializers.ModelSerializer):
-    workspaces = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Company
-        fields = ["id", "name", "slug", "settings", "workspaces", "created_at", "updated_at"]
-        read_only_fields = fields
-
-    def get_workspaces(self, obj):
-        # Only workspaces the requester belongs to are listed, so linking never leaks other tenants.
-        user = self.context["request"].user
-        visible = WorkspaceMember.objects.filter(member=user, is_active=True).values_list("workspace_id", flat=True)
-        links = CompanyWorkspace.objects.filter(company=obj, workspace_id__in=visible).select_related("workspace")
-        return [
-            {
-                "id": link.workspace_id,
-                "slug": link.workspace.slug,
-                "name": link.workspace.name,
-                "is_primary": link.is_primary,
-            }
-            for link in links
-        ]
-
-
-class CompanyWriteSerializer(serializers.Serializer):
-    name = serializers.CharField(max_length=255)
-
-    def validate_name(self, value):
-        value = value.strip()
-        if not value:
-            raise serializers.ValidationError("Name is required.")
-        return value
+from .models import Department, DepartmentMember, DepartmentRole
 
 
 class DepartmentSerializer(serializers.ModelSerializer):
@@ -106,8 +71,6 @@ class MemberRoleSerializer(serializers.Serializer):
 
 
 __all__ = [
-    "CompanySerializer",
-    "CompanyWriteSerializer",
     "DepartmentMember",
     "DepartmentSerializer",
     "DepartmentWriteSerializer",

@@ -146,7 +146,7 @@ See `docs/13-DEPLOYMENT-GUIDE.md` §2 for the full table. Summary: backend stack
 
 | Proposed module         | Plane provides                                                                                  | Verdict                                                     |
 | ----------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| 1 Company/departments   | `Workspace`; `WorkspaceMember.company_role` (text)                                              | Nothing for hierarchy — build                               |
+| 1 Departments           | `Workspace`; `WorkspaceMember.company_role` (text)                                              | Nothing for hierarchy — build                               |
 | 2 Teams/memberships     | Dormant `Team` model (no members, no API)                                                       | Extend/replace — decision needed (§03 open Q)               |
 | 3 Custom RBAC           | 3-value `ROLE` at workspace+project level                                                       | Build as restrict-only layer                                |
 | 4 Milestones/timeline   | `Module`, `Cycle`, `IssueRelation`, Gantt UI                                                    | Partial reuse; no milestone entity                          |

@@ -6,17 +6,13 @@ from uuid import uuid4
 
 import pytest
 
-from plane.custom.company.models import Company, CompanyWorkspace, Department, DepartmentMember
+from plane.custom.company.models import Department, DepartmentMember
 from plane.custom.company.services import (
     MAX_DEPARTMENT_DEPTH,
     OrgError,
     add_department_member,
-    create_company,
     delete_department,
     ensure_workspace_member,
-    get_company_for_workspace,
-    link_workspace,
-    unlink_workspace,
     validate_parent,
 )
 from plane.db.models import User, Workspace, WorkspaceMember
@@ -41,56 +37,6 @@ def dept(db, workspace):
         return Department.objects.create(name=name, parent=parent, workspace=ws or workspace)
 
     return _make
-
-
-@pytest.mark.django_db
-class TestCompany:
-    def test_create_attaches_primary_workspace_and_unique_slug(self, workspace, create_user):
-        company = create_company(workspace, "Acme Corp")
-        assert company.slug == "acme-corp"
-        link = CompanyWorkspace.objects.get(company=company)
-        assert link.workspace_id == workspace.id and link.is_primary
-        second_ws = make_workspace(create_user)
-        assert create_company(second_ws, "Acme Corp").slug == "acme-corp-2"
-
-    def test_workspace_cannot_join_two_companies(self, workspace):
-        create_company(workspace, "A")
-        with pytest.raises(OrgError):
-            create_company(workspace, "B")
-
-    def test_link_requires_admin_of_target(self, workspace, create_user):
-        company = create_company(workspace, "A")
-        other_owner = make_user()
-        foreign = make_workspace(other_owner)
-        with pytest.raises(OrgError):
-            link_workspace(company, foreign, create_user)  # create_user is not a member of foreign
-        WorkspaceMember.objects.create(workspace=foreign, member=create_user, role=15)
-        with pytest.raises(OrgError):
-            link_workspace(company, foreign, create_user)  # member, not admin
-        WorkspaceMember.objects.filter(workspace=foreign, member=create_user).update(role=20)
-        link = link_workspace(company, foreign, create_user)
-        assert link.is_primary is False
-
-    def test_link_rejects_workspace_already_in_a_company(self, workspace, create_user):
-        company = create_company(workspace, "A")
-        other = make_workspace(create_user)
-        create_company(other, "B")
-        with pytest.raises(OrgError):
-            link_workspace(company, other, create_user)
-
-    def test_unlink_promotes_new_primary_and_deletes_empty_company(self, workspace, create_user):
-        company = create_company(workspace, "A")
-        second = make_workspace(create_user)
-        link_workspace(company, second, create_user)
-        unlink_workspace(workspace)  # was primary
-        assert CompanyWorkspace.objects.get(workspace=second).is_primary is True
-        assert get_company_for_workspace(workspace) is None
-        unlink_workspace(second)
-        assert not Company.objects.filter(pk=company.pk).exists()
-
-    def test_unlink_without_company_raises(self, workspace):
-        with pytest.raises(OrgError):
-            unlink_workspace(workspace)
 
 
 @pytest.mark.django_db

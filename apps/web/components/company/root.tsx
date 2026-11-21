@@ -20,7 +20,6 @@ import { useUserPermissions } from "@/hooks/store/user";
 // services
 import { CompanyService } from "@/services/company.service";
 // local imports
-import { CompanySection } from "./company-section";
 import { DeleteEntityModal } from "./delete-modal";
 import { EntityModal } from "./entity-modal";
 import { DepartmentList, TeamList } from "./list";
@@ -51,9 +50,6 @@ export const CompanyRoot = observer(function CompanyRoot(props: Props) {
     workspaceSlug
   );
 
-  const company = useSWR(canRead ? ["custom-company", workspaceSlug] : null, () =>
-    companyService.getCompany(workspaceSlug)
-  );
   const departments = useSWR(canRead ? ["custom-departments", workspaceSlug] : null, () =>
     companyService.getDepartments(workspaceSlug)
   );
@@ -62,10 +58,10 @@ export const CompanyRoot = observer(function CompanyRoot(props: Props) {
   if (!canRead) {
     return <div className="py-10 text-center text-13 text-secondary">{t("something_went_wrong")}</div>;
   }
-  if (departments.isLoading || teams.isLoading || company.isLoading) {
+  if (departments.isLoading || teams.isLoading) {
     return <div className="py-10 text-center text-13 text-secondary">{t("loading")}</div>;
   }
-  if (departments.error || teams.error || company.error || !departments.data || !teams.data) {
+  if (departments.error || teams.error || !departments.data || !teams.data) {
     return <div className="py-10 text-center text-13 text-secondary">{t("something_went_wrong")}</div>;
   }
 
@@ -100,13 +96,6 @@ export const CompanyRoot = observer(function CompanyRoot(props: Props) {
 
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-4">
-      <CompanySection
-        workspaceSlug={workspaceSlug}
-        company={company.data ?? null}
-        canEdit={canEdit}
-        onCreated={() => void company.mutate()}
-      />
-
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-1" role="tablist">
           {(["departments", "teams"] as const).map((key) => (

@@ -1,11 +1,6 @@
 {
   "company": {
     "nav_label": "Công ty",
-    "no_company_title": "Không gian làm việc này chưa thuộc công ty nào",
-    "no_company_description": "Tạo công ty để nhóm các không gian làm việc phục vụ báo cáo.",
-    "create_company": "Tạo công ty",
-    "company_name_placeholder": "Tên công ty",
-    "primary": "Chính",
     "departments": "Phòng ban",
     "department": "Phòng ban",
     "add_department": "Thêm phòng ban",
