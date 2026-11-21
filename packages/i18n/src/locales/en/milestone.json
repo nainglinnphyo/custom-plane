@@ -1,0 +1,16 @@
+{
+  "milestone": {
+    "add": "Add milestone",
+    "create_title": "New milestone",
+    "edit_title": "Edit milestone",
+    "name_placeholder": "Milestone name",
+    "status_missed": "Missed",
+    "due_on": "Due {date}",
+    "empty_title": "No milestones yet",
+    "empty_description": "Create a milestone to track a key delivery date for this project.",
+    "delete_title": "Delete milestone",
+    "delete_description": "This milestone will be removed. Linked work items are not deleted.",
+    "toast_saved": "Milestone saved",
+    "toast_deleted": "Milestone deleted"
+  }
+}

@@ -188,3 +188,12 @@ deployments/kubernetes/custom/
 ---
 
 **Next**: PR 1 — Custom Plane foundation and documentation
+
+---
+
+## Errata (added during PR 2, 2026-11-21)
+
+- **D1 "26 upstream extension seams"** was overstated: files named `*extended*` are not all no-op seams (several are real sidebar/header components). Verified seams are listed in `02-REPOSITORY-ANALYSIS.md` §4.1. No seam exists for project navigation tabs.
+- **D1 "one line in `INSTALLED_APPS`"** was insufficient for multiple modules; replaced by `CUSTOM_INSTALLED_APPS` (`plane/custom/apps_list.py`), approved and implemented in PR 2.
+- **D3 "7 hard-coded ROLE locations"** is not reproducible (about 364 references); see `02` §3.5.
+- Upstream ships placeholders for a Milestones feature (see `02` §7a); revisit D5 if upstream releases it in CE.

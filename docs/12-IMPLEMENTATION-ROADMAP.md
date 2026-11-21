@@ -28,7 +28,7 @@ Target branch for upstream is `preview`; for this fork, PRs go into `custom/main
 
 ### PR 2 — Milestones & timeline: backend implemented (branch `feat/pr2-milestones-timeline`, uncommitted)
 
-Models/migration `custom_milestones.0001_initial`, services, permissions, serializers, views, URLs, nightly refresh task, 48 new tests. **Frontend (route, sidebar, Gantt markers) not started.** See 08 §8 for details.
+Models/migration `custom_milestones.0001_initial`, services, permissions, serializers, views, URLs, nightly refresh task, 48 new tests. **Frontend:** route via `routes/extended.ts`, milestones list/timeline page, create/edit/delete, i18n (21 locales), Vitest for `apps/web` — see 08 §9. **Pending approval:** project-navigation tab (edits core `use-navigation-items.ts` + `project-navigation.tsx`); until then the page is reachable by URL only. **Not built:** Gantt markers, work-item linking UI, dependency UI.
 
 ### PR 3 — Company organizational structure (Modules 1–2)
 

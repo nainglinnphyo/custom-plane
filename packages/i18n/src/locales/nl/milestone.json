@@ -1,0 +1,16 @@
+{
+  "milestone": {
+    "add": "Mijlpaal toevoegen",
+    "create_title": "Nieuwe mijlpaal",
+    "edit_title": "Mijlpaal bewerken",
+    "name_placeholder": "Naam van de mijlpaal",
+    "status_missed": "Gemist",
+    "due_on": "Vervalt op {date}",
+    "empty_title": "Nog geen mijlpalen",
+    "empty_description": "Maak een mijlpaal aan om een belangrijke opleverdatum voor dit project bij te houden.",
+    "delete_title": "Mijlpaal verwijderen",
+    "delete_description": "Deze mijlpaal wordt verwijderd. Gekoppelde werkitems worden niet verwijderd.",
+    "toast_saved": "Mijlpaal opgeslagen",
+    "toast_deleted": "Mijlpaal verwijderd"
+  }
+}

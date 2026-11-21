@@ -1,0 +1,16 @@
+{
+  "milestone": {
+    "add": "Meilenstein hinzufügen",
+    "create_title": "Neuer Meilenstein",
+    "edit_title": "Meilenstein bearbeiten",
+    "name_placeholder": "Name des Meilensteins",
+    "status_missed": "Verpasst",
+    "due_on": "Fällig am {date}",
+    "empty_title": "Noch keine Meilensteine",
+    "empty_description": "Erstellen Sie einen Meilenstein, um einen wichtigen Liefertermin für dieses Projekt zu verfolgen.",
+    "delete_title": "Meilenstein löschen",
+    "delete_description": "Dieser Meilenstein wird entfernt. Verknüpfte Arbeitselemente werden nicht gelöscht.",
+    "toast_saved": "Meilenstein gespeichert",
+    "toast_deleted": "Meilenstein gelöscht"
+  }
+}

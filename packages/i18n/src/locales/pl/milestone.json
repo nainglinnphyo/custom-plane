@@ -1,0 +1,16 @@
+{
+  "milestone": {
+    "add": "Dodaj kamień milowy",
+    "create_title": "Nowy kamień milowy",
+    "edit_title": "Edytuj kamień milowy",
+    "name_placeholder": "Nazwa kamienia milowego",
+    "status_missed": "Niezrealizowany",
+    "due_on": "Termin: {date}",
+    "empty_title": "Brak kamieni milowych",
+    "empty_description": "Utwórz kamień milowy, aby śledzić kluczowy termin dostawy w tym projekcie.",
+    "delete_title": "Usuń kamień milowy",
+    "delete_description": "Ten kamień milowy zostanie usunięty. Powiązane elementy pracy nie zostaną usunięte.",
+    "toast_saved": "Zapisano kamień milowy",
+    "toast_deleted": "Usunięto kamień milowy"
+  }
+}

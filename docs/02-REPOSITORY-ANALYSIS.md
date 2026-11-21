@@ -121,7 +121,9 @@ Celery + RabbitMQ broker (`CELERY_BROKER_URL`), Redis/Valkey present for caching
 - `apps/admin/{providers/extended.tsx,components/common/header/extended.ts}`, `apps/space/hooks/oauth/extended.tsx`, `apps/live/src/services/page/extended.service.ts`
 - **Backend: exactly one** — `apps/api/plane/utils/instance_config_variables/extended.py`.
 
-These are intended upstream no-op hook points. Their _stability_ across releases was asserted in `DECISIONS.md` D4 (seam files unchanged across `v1.4.3..v1.5.0`) but **was not re-verified in this pass** (unverified).
+**Correction (PR 2 frontend work):** the `extended` name is _not_ a reliable marker of a no-op seam. Several of these files are real, working UI — e.g. `extended-sidebar.tsx`, `extended-project-sidebar.tsx`, `extended-sidebar-wrapper.tsx`, `extended-sidebar-item.tsx` implement the "extended" (pinned/expanded) sidebar panel and `extended-app-header.tsx` is the app header wrapper. They must not be treated as extension points. The verified empty/no-op seams are: `app/routes/extended.ts` (now used by PR 2), `packages/types/src/base-layouts/gantt/extended.ts`, `packages/constants/src/{auth,rich-filters/operator-labels}/extended.ts`, `packages/types/src/{page,rich-filters/*}/extended.ts`, and the OAuth/provider hooks. **There is no seam for project navigation tabs**: `components/navigation/use-navigation-items.ts` and `components/workspace/sidebar/project-navigation.tsx` are core files, so adding a "Milestones" tab needs a small edit to both (see 12 PR 2).
+
+The original statement follows. These were described as intended upstream no-op hook points. Their _stability_ across releases was asserted in `DECISIONS.md` D4 (seam files unchanged across `v1.4.3..v1.5.0`) but **was not re-verified in this pass** (unverified).
 
 ## 5. Infrastructure & deployment
 
@@ -159,6 +161,10 @@ See `docs/13-DEPLOYMENT-GUIDE.md` §2 for the full table. Summary: backend stack
 | 13 Audit logs           | `IssueActivity` (issue-only), `APIActivityLog`                                                  | Extend — no workspace-wide audit                            |
 | 14 OKRs                 | none                                                                                            | Full build                                                  |
 | 15 AI assistant         | LLM provider registry (OpenAI/Anthropic/Gemini) + instance `LLM_*` config, text-completion only | Reuse provider layer; assistant/tools/conversations are new |
+
+## 7a. Upstream already anticipates a Milestones feature (found in PR 2)
+
+Plane v1.5.0 ships _placeholders_ for a Milestones feature whose implementation is not in this repository (it appears to belong to a paid edition): i18n strings `common.milestones`, `common.milestones_description`, `project-settings` feature toggle "Enable milestones", the `PROJECT_MILESTONES` fetch key (`packages/constants/src/fetch-keys.ts`), a `milestone` empty-state illustration in `@plane/blocks`, and `"milestones"` in the project overview collapsible sections. The custom module reuses these (fetch key, translation strings, naming) rather than redefining them. **Risk:** if a future upstream CE release implements Milestones, routes/strings/UI will overlap with ours — re-check on every upstream sync (15 §3).
 
 ## 8. Findings that affect design
 

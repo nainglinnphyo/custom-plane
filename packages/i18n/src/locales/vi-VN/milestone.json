@@ -1,0 +1,16 @@
+{
+  "milestone": {
+    "add": "Thêm cột mốc",
+    "create_title": "Cột mốc mới",
+    "edit_title": "Chỉnh sửa cột mốc",
+    "name_placeholder": "Tên cột mốc",
+    "status_missed": "Bỏ lỡ",
+    "due_on": "Hạn {date}",
+    "empty_title": "Chưa có cột mốc nào",
+    "empty_description": "Tạo cột mốc để theo dõi ngày bàn giao quan trọng của dự án này.",
+    "delete_title": "Xóa cột mốc",
+    "delete_description": "Cột mốc này sẽ bị xóa. Các mục công việc được liên kết sẽ không bị xóa.",
+    "toast_saved": "Đã lưu cột mốc",
+    "toast_deleted": "Đã xóa cột mốc"
+  }
+}

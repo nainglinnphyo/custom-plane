@@ -1,0 +1,16 @@
+{
+  "milestone": {
+    "add": "Přidat milník",
+    "create_title": "Nový milník",
+    "edit_title": "Upravit milník",
+    "name_placeholder": "Název milníku",
+    "status_missed": "Zmeškáno",
+    "due_on": "Termín: {date}",
+    "empty_title": "Zatím žádné milníky",
+    "empty_description": "Vytvořte milník ke sledování klíčového data dodání pro tento projekt.",
+    "delete_title": "Smazat milník",
+    "delete_description": "Tento milník bude odstraněn. Propojené pracovní položky nebudou smazány.",
+    "toast_saved": "Milník byl uložen",
+    "toast_deleted": "Milník byl smazán"
+  }
+}

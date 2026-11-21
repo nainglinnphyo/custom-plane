@@ -15,14 +15,17 @@ Rehearse on `-rcN` tags first (upstream publishes 1–3 per release: `v1.5.0-rc1
 
 ## 2. Conflict surface (what we own that upstream also touches)
 
-| File                                | Edit                                                                                    | Risk                                                                                              |
-| ----------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| `apps/api/plane/settings/common.py` | +2 lines in `INSTALLED_APPS` (proposed: replace with one `CUSTOM_INSTALLED_APPS` splat) | Low; `INSTALLED_APPS` changes occasionally                                                        |
-| `apps/api/plane/urls.py`            | +2 lines (`api/custom/`)                                                                | Low                                                                                               |
-| `docker-compose-local.yml`          | Postgres host port 5435                                                                 | Low–Med (compose file changes upstream; local only)                                               |
-| `apps/api/migrations_lockfile.txt`  | gains `custom_*` lines                                                                  | Low — blank-line-separated per app to avoid conflicts                                             |
-| Frontend `*extended*` seams         | custom content                                                                          | Medium — upstream may start filling them; keep custom code in separate files imported by the seam |
-| Everything else                     | none (all under `plane/custom/`, `docs/`)                                               | none                                                                                              |
+| File                                        | Edit                                                                                           | Risk                                                                                              |
+| ------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `apps/api/plane/settings/common.py`         | +2 lines in `INSTALLED_APPS` (proposed: replace with one `CUSTOM_INSTALLED_APPS` splat)        | Low; `INSTALLED_APPS` changes occasionally                                                        |
+| `apps/api/plane/urls.py`                    | +2 lines (`api/custom/`)                                                                       | Low                                                                                               |
+| `docker-compose-local.yml`                  | Postgres host port 5435                                                                        | Low–Med (compose file changes upstream; local only)                                               |
+| `apps/api/migrations_lockfile.txt`          | gains `custom_*` lines                                                                         | Low — blank-line-separated per app to avoid conflicts                                             |
+| Frontend `*extended*` seams                 | custom content                                                                                 | Medium — upstream may start filling them; keep custom code in separate files imported by the seam |
+| `packages/i18n/src/constants/namespaces.ts` | +1 entry (`milestone`)                                                                         | Low — alphabetical list; every new custom namespace adds a line                                   |
+| `apps/web/app/routes/extended.ts`           | custom routes (seam)                                                                           | Low–Med — upstream may fill the seam                                                              |
+| `apps/web/package.json`, `pnpm-lock.yaml`   | `vitest` devDependency + `test` script                                                         | Low — re-run `pnpm install` on conflict                                                           |
+| Everything else                             | none (all under `plane/custom/`, `docs/`, `apps/web/components/milestones/`, new locale files) | none                                                                                              |
 
 ## 3. Per-sync checklist
 
@@ -44,3 +47,7 @@ Upstream releases roughly every 4–8 weeks (D4 claim, based on the 68 tags pres
 - Upstream fills `extended` seams (they are placeholders upstream) → conflict in UI hook files.
 - AGPL: obligations continue for every release we deploy (D6).
 - Single maintainer knowledge risk — keep this doc and `DECISIONS.md` current.
+
+## 6. Extra per-sync check (added in PR 2)
+
+Re-grep for upstream Milestones code arriving in CE: `git grep -il milestone -- apps packages ':!apps/api/plane/custom'` and compare against the placeholders listed in `02-REPOSITORY-ANALYSIS.md` §7a.

@@ -1,0 +1,16 @@
+{
+  "milestone": {
+    "add": "Ajouter un jalon",
+    "create_title": "Nouveau jalon",
+    "edit_title": "Modifier le jalon",
+    "name_placeholder": "Nom du jalon",
+    "status_missed": "Manqué",
+    "due_on": "Échéance : {date}",
+    "empty_title": "Aucun jalon pour le moment",
+    "empty_description": "Créez un jalon pour suivre une date de livraison clé de ce projet.",
+    "delete_title": "Supprimer le jalon",
+    "delete_description": "Ce jalon sera supprimé. Les éléments de travail associés ne sont pas supprimés.",
+    "toast_saved": "Jalon enregistré",
+    "toast_deleted": "Jalon supprimé"
+  }
+}

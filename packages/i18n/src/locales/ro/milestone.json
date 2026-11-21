@@ -1,0 +1,16 @@
+{
+  "milestone": {
+    "add": "Adaugă jalon",
+    "create_title": "Jalon nou",
+    "edit_title": "Editează jalonul",
+    "name_placeholder": "Numele jalonului",
+    "status_missed": "Ratat",
+    "due_on": "Termen: {date}",
+    "empty_title": "Încă nu există jaloane",
+    "empty_description": "Creează un jalon pentru a urmări o dată de livrare importantă a acestui proiect.",
+    "delete_title": "Șterge jalonul",
+    "delete_description": "Acest jalon va fi eliminat. Activitățile asociate nu sunt șterse.",
+    "toast_saved": "Jalon salvat",
+    "toast_deleted": "Jalon șters"
+  }
+}
