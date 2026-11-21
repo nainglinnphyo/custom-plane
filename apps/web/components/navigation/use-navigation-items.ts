@@ -16,6 +16,7 @@ import {
   WorkItemsOutline,
 } from "@makeplane/propel/icons";
 import type { EUserProjectRoles, IPartialProject } from "@plane/types";
+import { getMilestonesNavigationItem } from "@/components/milestones/navigation";
 import type { TNavigationItem } from "@/components/navigation/tab-navigation-root";
 
 type UseNavigationItemsProps = {
@@ -100,6 +101,8 @@ export const useNavigationItems = ({
         shouldRender: !!project?.inbox_view,
         sortOrder: 6,
       },
+      // Custom Plane
+      getMilestonesNavigationItem(workspaceSlug, projectId),
     ],
     [project]
   );

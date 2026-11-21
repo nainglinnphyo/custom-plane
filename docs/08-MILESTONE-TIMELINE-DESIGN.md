@@ -52,7 +52,7 @@ Implemented in `apps/api/plane/custom/milestones/` (app label `custom_milestones
 - **At risk**: not achieved and some open linked item has `target_date` after the milestone's `due_date`.
 - **Dependencies**: finish-to-start only; self, duplicate, cross-project and (transitive) cycles are rejected.
 - **Tenant safety**: every lookup is scoped by workspace slug + project id; linking issues validates they belong to the milestone's project; foreign ids return 400/404 and nothing is written.
-- **Frontend: implemented (see §9).** **Not done yet**: Gantt integration, work-item linking UI, dependency UI, project-nav tab; deleted milestones' links/dependencies rely on the core soft-delete cascade task (covered by the model default manager, not separately tested); list endpoints are unpaginated by design (milestones per project are few).
+- **Frontend: implemented (see §9).** **Not done yet**: Gantt integration, work-item linking UI, dependency UI; deleted milestones' links/dependencies rely on the core soft-delete cascade task (covered by the model default manager, not separately tested); list endpoints are unpaginated by design (milestones per project are few).
 
 ## 9. Implementation status (PR 2, frontend)
 
@@ -63,4 +63,5 @@ Route `/:workspaceSlug/projects/:projectId/milestones`, registered through the e
 - i18n: new namespace `milestone` (12 keys) translated for all 21 non-English locales; everything else reuses existing keys (`common.planned/in_progress/completed/at_risk`, `module.details_drawer.progress.done`, `milestones`). Translations were authored against the skill's glossary and **need native review**. `@plane/i18n` must be rebuilt (`pnpm --filter @plane/i18n build`) for dev servers to see a new namespace.
 - Tests: `apps/web` now has Vitest (`pnpm --filter web test`, `vitest.config.ts`, devDependency + lockfile entry); 10 helper tests.
 - Verified in a browser (dev server on :3010 against the Docker API): empty state, create, edit prefill, delete + toast, status / at-risk / progress / timeline rendering for seeded data.
-- **Not done:** Gantt-chart integration (a standalone timeline avoids touching upstream Gantt internals), work-item linking UI (API exists), dependency UI, navigation tab (needs approval for two core-file edits), component-level tests (no jsdom/Testing Library set up), narrow-viewport and RTL checks.
+- **Not done:** Gantt-chart integration (a standalone timeline avoids touching upstream Gantt internals), work-item linking UI (API exists), dependency UI, component-level tests (no jsdom/Testing Library set up), narrow-viewport and RTL checks.
+- Navigation: "Milestones" tab in the project sidebar, header tabs and tab-navigation (verified in the sidebar in a browser).

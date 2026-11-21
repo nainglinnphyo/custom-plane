@@ -53,6 +53,7 @@ import { usePlatformOS } from "@/hooks/use-platform-os";
 // local imports
 import { HIGHLIGHT_CLASS, highlightIssueOnDrop } from "../../issues/issue-layouts/utils";
 import { ProjectNavigation } from "./project-navigation";
+import { getCustomNavigationItems } from "@/components/milestones/navigation";
 import { useNavigationItems } from "@/components/navigation/use-navigation-items";
 
 type Props = {
@@ -461,7 +462,11 @@ export const SidebarProjectsListItem = observer(function SidebarProjectsListItem
           {isAccordionMode && isProjectListOpen && (
             <div className="relative mt-1 mb-1.5 flex flex-col gap-px pl-6">
               <div className="absolute top-0 bottom-1 left-[15px] w-[1px] bg-layer-3" />
-              <ProjectNavigation workspaceSlug={workspaceSlug.toString()} projectId={projectId.toString()} />
+              <ProjectNavigation
+                workspaceSlug={workspaceSlug.toString()}
+                projectId={projectId.toString()}
+                additionalNavigationItems={getCustomNavigationItems}
+              />
             </div>
           )}
           {isLastChild && <DropIndicator isVisible={instruction === "DRAG_BELOW"} />}
