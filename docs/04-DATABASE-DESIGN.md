@@ -18,9 +18,10 @@ Design for PRs 2–6 modules. Nothing is migrated yet. Existing-model facts come
 | `CompanyWorkspace` | `company` FK, `workspace` FK, `is_primary` bool                                   | unique (company, workspace)                                                                |
 | `Department`       | `workspace` FK, `name`, `description`, `parent` self-FK null, `head` FK User null | unique (workspace, parent, name); cycle check in service layer                             |
 | `DepartmentMember` | `department` FK, `member` FK User, `role` (member/lead)                           | unique (department, member); member must be an active `WorkspaceMember` (service-enforced) |
-| `TeamMember`       | `team` FK → **`db.Team` or `CustomTeam`** (Open Q1), `member` FK User, `role`     | unique (team, member)                                                                      |
+| `CustomTeam`       | `workspace` FK, `name`, `description`, `department` FK null (SET_NULL)            | unique (workspace, name); table `custom_teams`                                             |
+| `TeamMember`       | `team` FK, `member` FK User, `role` (member/lead)                                 | unique (team, member); member must be an active `WorkspaceMember` (service-enforced)       |
 
-If the dormant `db.Team` is reused, `TeamMember` is the only new table; if not, add `CustomTeam(workspace, name, description, department FK null)`.
+**Implemented in PR 3** (apps `custom_company`, `custom_teams`; tables `custom_companies`, `custom_company_workspaces`, `custom_departments`, `custom_department_members`, `custom_teams`, `custom_team_members`). Differences from the first design: `Department.head` was dropped in favour of `DepartmentMember.role = lead` (several leads allowed); `CustomTeam` is a separate table, not the dormant upstream `db.Team` (decision D8 in `DECISIONS.md`); a workspace may belong to **at most one** company and a company has exactly one primary workspace (partial unique constraints); department nesting is limited to 8 levels; workspace-scoped models use `BaseModel` + an explicit `workspace` FK rather than `WorkspaceBaseModel`, which carries an unused nullable `project` column.
 
 ## 3. Module 3: RBAC policy layer
 

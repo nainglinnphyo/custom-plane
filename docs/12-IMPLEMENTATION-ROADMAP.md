@@ -30,7 +30,9 @@ Target branch for upstream is `preview`; for this fork, PRs go into `custom/main
 
 Models/migration `custom_milestones.0001_initial`, services, permissions, serializers, views, URLs, nightly refresh task, 48 new tests. **Frontend:** route via `routes/extended.ts`, milestones list/timeline page, create/edit/delete, i18n (21 locales), Vitest for `apps/web` — see 08 §9. **Navigation tab added (approved 2026-11-21):** small edits in core `use-navigation-items.ts` (header/tab navigation), `projects-list-item.tsx` (sidebar, via `ProjectNavigation`'s existing `additionalNavigationItems` prop) and `tab-navigation-utils.ts` (so "set as default tab" resolves the right URL), all pointing at `components/milestones/navigation.ts`. `project-navigation.tsx` was deliberately left untouched: it has pre-existing lint warnings that the repo's pre-commit hook (`--deny-warnings`) would attribute to any edit. **Not built:** Gantt markers, work-item linking UI, dependency UI.
 
-### PR 3 — Company organizational structure (Modules 1–2)
+### PR 3 — Company organizational structure (Modules 1–2): backend implemented (branch `feat/pr3-company-structure`, stacked on PR 2)
+
+Apps `custom_company` + `custom_teams`, migrations, services, permissions (`plane/custom/core/permissions.py`: workspace ADMIN write, ADMIN/MEMBER read), API, 56 new tests. **Frontend not started.** Original plan follows.
 
 Models `Company, CompanyWorkspace, Department, DepartmentMember, TeamMember`; CRUD APIs; admin UI via route/sidebar seams; Open Q1 (Team) resolved first. Tests: unit + contract + soft-delete cascade.
 

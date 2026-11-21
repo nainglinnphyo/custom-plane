@@ -195,7 +195,7 @@ Note: the task brief lists timesheets (5) before approvals (6) in PR order, but 
 
 ## 13. Open questions (need product-owner input)
 
-1. **Team**: reuse dormant `Team` (`teams` table) or create a separate custom team table? Reuse adds a dependency on an upstream-owned, unmaintained-in-view model; separate table avoids upstream risk but duplicates the name.
+1. ~~**Team**: reuse the dormant `Team` or create a separate table?~~ **Assumed in PR 3: separate table (`CustomTeam`), see decision D8.** Reuse would couple custom code to an upstream-owned table that upstream does not use today (EE has a different "Teamspaces" concept). Revisit if you want the two unified.
 2. Is restrict-only RBAC (D3) sufficient, or do you need roles that _grant_ beyond Admin/Member/Guest?
 3. Single-workspace deployment or multi-workspace under one Company?
 4. ~~PR order~~ **Resolved 2026-11-21: D5 order (Milestones → Company → RBAC → Approval → Timesheet).**

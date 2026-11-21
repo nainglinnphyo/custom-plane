@@ -11,4 +11,6 @@ a custom module never requires another edit to a core file: add its dotted path 
 CUSTOM_INSTALLED_APPS = [
     "plane.custom.core",
     "plane.custom.milestones",
+    "plane.custom.company",
+    "plane.custom.teams",
 ]
