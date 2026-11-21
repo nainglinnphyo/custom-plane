@@ -1,0 +1,29 @@
+{
+  "organization": {
+    "nav_label": "Организация",
+    "departments": "Отделы",
+    "department": "Отдел",
+    "add_department": "Добавить отдел",
+    "edit_department": "Редактировать отдел",
+    "add_team": "Добавить команду",
+    "edit_team": "Редактировать команду",
+    "department_name_placeholder": "Название отдела",
+    "team_name_placeholder": "Название команды",
+    "parent_department": "Родительский отдел",
+    "top_level": "Верхний уровень",
+    "members_count": "Участники: {count}",
+    "manage_members": "Управление участниками",
+    "select_member": "Выберите участника",
+    "empty_departments_title": "Пока нет отделов",
+    "empty_departments_description": "Создайте отделы, чтобы отразить структуру вашей организации.",
+    "empty_teams_title": "Пока нет команд",
+    "empty_teams_description": "Создайте команды, чтобы объединить людей, работающих вместе.",
+    "delete_department_title": "Удалить отдел",
+    "delete_department_description": "Этот отдел и его членства будут удалены. Команды в нём сохранятся.",
+    "delete_team_title": "Удалить команду",
+    "delete_team_description": "Эта команда и её членства будут удалены.",
+    "toast_saved": "Сохранено",
+    "toast_deleted": "Удалено",
+    "no_members": "Пока нет участников."
+  }
+}

@@ -13,9 +13,9 @@ import type { IWorkspaceSidebarNavigationItem } from "./workspace";
  */
 export const CUSTOM_WORKSPACE_SIDEBAR_NAVIGATION_ITEMS_LINKS: IWorkspaceSidebarNavigationItem[] = [
   {
-    key: "company",
-    labelTranslationKey: "company.nav_label",
-    href: `/company/`,
+    key: "organization",
+    labelTranslationKey: "organization.nav_label",
+    href: `/organization/`,
     access: [EUserWorkspaceRoles.ADMIN, EUserWorkspaceRoles.MEMBER],
     highlight: (pathname: string, url: string) => pathname.includes(url),
   },

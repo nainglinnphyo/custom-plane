@@ -1,0 +1,29 @@
+{
+  "organization": {
+    "nav_label": "Tổ chức",
+    "departments": "Phòng ban",
+    "department": "Phòng ban",
+    "add_department": "Thêm phòng ban",
+    "edit_department": "Chỉnh sửa phòng ban",
+    "add_team": "Thêm nhóm",
+    "edit_team": "Chỉnh sửa nhóm",
+    "department_name_placeholder": "Tên phòng ban",
+    "team_name_placeholder": "Tên nhóm",
+    "parent_department": "Phòng ban cấp trên",
+    "top_level": "Cấp cao nhất",
+    "members_count": "Thành viên: {count}",
+    "manage_members": "Quản lý thành viên",
+    "select_member": "Chọn thành viên",
+    "empty_departments_title": "Chưa có phòng ban nào",
+    "empty_departments_description": "Tạo các phòng ban để mô hình hóa tổ chức của bạn.",
+    "empty_teams_title": "Chưa có nhóm nào",
+    "empty_teams_description": "Tạo nhóm để gom những người làm việc cùng nhau.",
+    "delete_department_title": "Xóa phòng ban",
+    "delete_department_description": "Phòng ban này và các tư cách thành viên của nó sẽ bị xóa. Các nhóm trong phòng ban được giữ lại.",
+    "delete_team_title": "Xóa nhóm",
+    "delete_team_description": "Nhóm này và các tư cách thành viên của nó sẽ bị xóa.",
+    "toast_saved": "Đã lưu",
+    "toast_deleted": "Đã xóa",
+    "no_members": "Chưa có thành viên nào."
+  }
+}

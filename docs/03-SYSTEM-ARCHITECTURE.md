@@ -199,14 +199,14 @@ Note: the task brief lists timesheets (5) before approvals (6) in PR order, but 
 4. ~~PR order~~ **Resolved 2026-11-21: D5 order (Milestones → Company → RBAC → Approval → Timesheet).**
 5. ~~Was `DECISIONS.md` / the pre-existing PR 1 commit approved?~~ **Resolved 2026-11-21: yes, approved by the product owner.** (Decisions D1–D7 stand; the `CUSTOM_INSTALLED_APPS` refinement in §6 still needs its own approval.)
 
-## 14. PR 3 frontend status (departments and teams)
+## 14. PR 3 frontend status (organization: departments and teams)
 
-Route `/:workspaceSlug/company` (the page lists the workspace's departments and teams; it keeps the "Company" name because the workspace is the company) through the `routes/extended.ts` seam, plus a **Company** item in the workspace sidebar's "More" panel (can be pinned) via `packages/constants/src/custom-workspace-navigation.ts`.
+Route `/:workspaceSlug/organization` through the `routes/extended.ts` seam, plus an **Organization** item in the workspace sidebar's "More" panel (can be pinned) via `packages/constants/src/custom-workspace-navigation.ts`. (The UI is called "Organization" rather than "Company" because a workspace is the company, decision D9.)
 
-- `apps/web/components/company/`: `root` (tabs Departments / Teams, SWR), `list` (department tree with indentation, team rows with department badge), `entity-modal` (create/edit department or team), `members-modal` (roster, add from workspace members, change role, remove), `delete-modal`, pure `helpers`, `types`.
-- `apps/web/services/company.service.ts`.
-- i18n: namespace `company` (25 keys) in all 22 locales; reuses `common.teams/member`, `lead`, `members`, `add_member`, `remove`, etc. **Non-English strings need native review.**
+- `apps/web/components/organization/`: `root` (tabs Departments / Teams, SWR), `list` (department tree with indentation, team rows with department badge), `entity-modal` (create/edit department or team), `members-modal` (roster, add from workspace members, change role, remove), `delete-modal`, pure `helpers`, `types`.
+- `apps/web/services/organization.service.ts`; route files in `app/(all)/[workspaceSlug]/(projects)/organization/`.
+- i18n: namespace `organization` (25 keys) in all 22 locales; reuses `common.teams/member`, `lead`, `members`, `add_member`, `remove`, etc. **Non-English strings need native review.** The backend app is still named `custom_company` (renaming would churn the unmerged migrations for no visible benefit).
 - Tests: 9 Vitest tests for the helpers (19 total in `apps/web`).
-- Verified in a browser: add department, add member through the picker, tree with sub-departments, teams tab with department badge, sidebar item and pinning, delete refused (HTTP 400) while sub-departments exist (dialog stays open).
+- Verified in a browser: add department, add member through the picker, tree with sub-departments, teams tab with department badge, sidebar item and pinning, delete refused (HTTP 400) while sub-departments exist (dialog stays open), and the renamed page/sidebar label.
 - Not done: component tests, narrow-viewport/RTL checks, a screenshot of the refused-delete toast.
 - Admin-only controls: workspace admins add/edit/delete/manage members; members get a read-only view; guests get the generic error state because the API denies them.

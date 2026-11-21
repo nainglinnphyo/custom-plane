@@ -1,0 +1,29 @@
+{
+  "organization": {
+    "nav_label": "組織",
+    "departments": "部門",
+    "department": "部門",
+    "add_department": "新增部門",
+    "edit_department": "編輯部門",
+    "add_team": "新增團隊",
+    "edit_team": "編輯團隊",
+    "department_name_placeholder": "部門名稱",
+    "team_name_placeholder": "團隊名稱",
+    "parent_department": "上層部門",
+    "top_level": "頂層",
+    "members_count": "成員：{count}",
+    "manage_members": "管理成員",
+    "select_member": "選擇成員",
+    "empty_departments_title": "尚無部門",
+    "empty_departments_description": "建立部門以建立您的組織架構。",
+    "empty_teams_title": "尚無團隊",
+    "empty_teams_description": "建立團隊，將協作的人員分組。",
+    "delete_department_title": "刪除部門",
+    "delete_department_description": "此部門及其成員關係將被移除。部門中的團隊將被保留。",
+    "delete_team_title": "刪除團隊",
+    "delete_team_description": "此團隊及其成員關係將被移除。",
+    "toast_saved": "已儲存",
+    "toast_deleted": "已刪除",
+    "no_members": "尚無成員。"
+  }
+}

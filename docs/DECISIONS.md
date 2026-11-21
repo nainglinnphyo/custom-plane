@@ -216,4 +216,4 @@ deployments/kubernetes/custom/
 
 **Supersedes** the Company part of D2 (Option a: "Company as a grouping alongside workspaces"). Department remains a workspace-scoped entity (D2 option b). There is no cross-workspace roll-up; reporting (module 7) is per workspace.
 
-**Implementation**: models, API (`company/`, `company/workspaces/`), UI section, five i18n keys and the related tests were removed before PR 3 merged, and the app's unmerged `0001_initial` migration was regenerated without them (no `0002` needed). The `/:workspaceSlug/company` page, sidebar item and `custom_company` app label keep their names; the page now simply shows the workspace's departments and teams.
+**Implementation**: models, API (`company/`, `company/workspaces/`), UI section, five i18n keys and the related tests were removed before PR 3 merged, and the app's unmerged `0001_initial` migration was regenerated without them (no `0002` needed). The page now simply shows the workspace's departments and teams and is called **Organization** in the UI (`/:workspaceSlug/organization`, namespace `organization`); the backend app label `custom_company` is unchanged.
